@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OrderBookLib
+﻿namespace OrderBookLib
 {
-    class OrderBookLine
+    public class OrderBookLine
     {
         public int RemainingQuantity;
 
