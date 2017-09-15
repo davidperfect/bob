@@ -3,11 +3,11 @@ using System.IO;
 
 namespace OrderBookLib.EventStorage
 {
-    class JsonMessageSerializer<T> : IMessageSerializer<T>
+    public class JsonMessageSerializer<T> : IMessageSerializer<T>
     {
         JsonSerializer _jsonSerializer;
 
-        JsonMessageSerializer()
+        public JsonMessageSerializer()
         {
             _jsonSerializer = new JsonSerializer();
         }

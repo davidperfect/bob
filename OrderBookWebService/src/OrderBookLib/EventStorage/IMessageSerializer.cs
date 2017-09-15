@@ -2,7 +2,7 @@
 
 namespace OrderBookLib.EventStorage
 {
-    interface IMessageSerializer<T>
+    public interface IMessageSerializer<T>
     {
         void Serialize(TextWriter textWriter, T message);
 

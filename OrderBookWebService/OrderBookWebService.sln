@@ -7,11 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AD5C27E8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FB1A86E8-B6BA-4957-82C1-56217C2B2C90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookLib.ServiceTests", "tests\OrderBookLib.ServiceTests\OrderBookLib.ServiceTests.csproj", "{8B763BF1-D064-48E2-8A8F-59BACF87A9E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookLib.ServiceTests", "tests\OrderBookLib.ServiceTests\OrderBookLib.ServiceTests.csproj", "{8B763BF1-D064-48E2-8A8F-59BACF87A9E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookLib", "src\OrderBookLib\OrderBookLib.csproj", "{2973C182-FFB8-4550-B36D-713F812834D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookWebService", "src\OrderBookWebService\OrderBookWebService.csproj", "{01BD9E7B-3566-4473-9B13-FD736BF4E8C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookLib.IntegrationTests", "tests\OrderBookLib.IntegrationTests\OrderBookLib.IntegrationTests.csproj", "{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{01BD9E7B-3566-4473-9B13-FD736BF4E8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01BD9E7B-3566-4473-9B13-FD736BF4E8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01BD9E7B-3566-4473-9B13-FD736BF4E8C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{8B763BF1-D064-48E2-8A8F-59BACF87A9E6} = {AD5C27E8-56F8-4551-A105-F5890F52EB5D}
 		{2973C182-FFB8-4550-B36D-713F812834D9} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
 		{01BD9E7B-3566-4473-9B13-FD736BF4E8C4} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
+		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381} = {AD5C27E8-56F8-4551-A105-F5890F52EB5D}
 	EndGlobalSection
 EndGlobal

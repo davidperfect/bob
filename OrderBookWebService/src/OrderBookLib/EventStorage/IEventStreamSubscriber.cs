@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace OrderBookLib.EventStorage
 {
-    interface IInputEventSteam<TEvent>
+    public interface IEventStreamSubscriber<TEvent>
     {
-        Task<TEvent> ReadEventAsync();
+        Task HandleEventAsync(TEvent anEvent);
     }
 }
