@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AD5C27E8-56F8-4551-A105-F5890F52EB5D}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookWebService", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookLib.IntegrationTests", "tests\OrderBookLib.IntegrationTests\OrderBookLib.IntegrationTests.csproj", "{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookDemoUI", "OrderBookDemoUI\OrderBookDemoUI.csproj", "{59231A06-934F-4560-BB1F-65B895B3E2B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookDemoUI", "src\OrderBookDemoUI\OrderBookDemoUI.csproj", "{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,10 @@ Global
 		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59231A06-934F-4560-BB1F-65B895B3E2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59231A06-934F-4560-BB1F-65B895B3E2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59231A06-934F-4560-BB1F-65B895B3E2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59231A06-934F-4560-BB1F-65B895B3E2B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +52,9 @@ Global
 		{2973C182-FFB8-4550-B36D-713F812834D9} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
 		{01BD9E7B-3566-4473-9B13-FD736BF4E8C4} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
 		{AFEF5F9B-CE4E-474F-A3FD-528DF1669381} = {AD5C27E8-56F8-4551-A105-F5890F52EB5D}
-		{59231A06-934F-4560-BB1F-65B895B3E2B2} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
+		{FE171531-B38C-4ACA-83E0-73DC0D78DA6B} = {FB1A86E8-B6BA-4957-82C1-56217C2B2C90}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E943CC1-B12C-46CF-BD3E-D4EF8B1740CD}
 	EndGlobalSection
 EndGlobal
