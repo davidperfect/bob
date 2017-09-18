@@ -1,0 +1,90 @@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+
+<div class="form-group">
+    <label for="InputTraderName">Trader Name</label>
+    <input class="form-control" type="text" id="InputTraderName" value="" placeholder="Trader Name" />
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <a href="javascript:void(0);" id="AnchorSelectBuy" class="btn btn-default btn-block">Buy</a>
+    </div>
+    <div class="col-md-6">
+        <a href="javascript:void(0);" id="AnchorSelectSell" class="btn btn-default btn-block">Sell</a>
+    </div>
+</div>
+<hr />
+
+<div id="DivBuy" class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="InputBuyQuantity">Quantity</label>
+                <input class="form-control" type="number" id="InputBuyQuantity" value="" placeholder="Quantity" />
+            </div>
+            <div class="form-group">
+                <label for="InputBuyPrice">Max Price</label>
+                <input class="form-control" type="number" id="InputBuyPrice" value="" placeholder="Max Price" />
+            </div>
+            <div class="form-group-lg">
+                <input type="submit" id="InputBuyButton" value="Buy Now" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="DivSell" class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="InputSellQuantity">Quantity</label>
+                <input class="form-control" type="number" id="InputSellQuantity" value="" placeholder="Quantity" />
+            </div>
+            <div class="form-group">
+                <label for="InputSellPrice">Min Price</label>
+                <input class="form-control" type="number" id="InputSellPrice" value="" placeholder="Min Price" />
+            </div>
+            <div class="form-group-lg">
+                <input type="submit" id="InputSellButton" value="Sell Now" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#AnchorSelectBuy").click(function () {
+                $(this).removeClass("btn-default")
+                    .addClass("btn-primary");
+
+                $("#AnchorSelectSell").addClass("btn-default")
+                    .removeClass("btn-info");
+
+                $("#DivBuy").show();
+                $("#DivSell").hide();
+            });
+
+            $("#AnchorSelectSell").click(function () {
+                $(this).removeClass("btn-default")
+                    .addClass("btn-info");
+
+                $("#AnchorSelectBuy").addClass("btn-default")
+                    .removeClass("btn-primary");
+
+                $("#DivSell").show();
+                $("#DivBuy").hide();
+            });
+
+            $("#AnchorSelectBuy").click();
+        });
+
+    </script>
+
+}
