@@ -3,12 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OrderBookWebService.Orders;
+using OrderBookLib.EventStorage;
+using OrderBookLib.Events;
+using System.Threading;
 
 namespace OrderBookWebService.Controllers
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
+        private static Lazy<OrderBookLib.Exchange> _exchange = new Lazy<OrderBookLib.Exchange>(CreateExchange);
+        private static OrderBookLib.Exchange CreateExchange()
+        {
+            IMessageSerializer<OrderPlaced> serializer = new JsonMessageSerializer<OrderPlaced>();
+            var orderStore = new EventStore<OrderPlaced>("OrderPlaced.txt", serializer);
+            var exchange = new OrderBookLib.Exchange(orderStore);
+            var cts = new CancellationTokenSource();
+            var runTask = exchange.RunAsync(cts.Token);
+            return exchange;
+        }
+
         // GET api/orders
         [HttpGet]
         public IEnumerable<string> Get()
@@ -25,8 +40,13 @@ namespace OrderBookWebService.Controllers
 
         // POST api/orders
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<int> Post([FromBody]Order order)
         {
+            var side = order.Side.ToLower() == "bid"
+                ? OrderBookLib.Side.Bid
+                : OrderBookLib.Side.Ask;
+
+            return await _exchange.Value.PlaceOrder(order.Party, order.PriceLimit, side, order.Quantity);
         }
 
         // PUT api/orders/5

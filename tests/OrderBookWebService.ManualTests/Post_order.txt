@@ -1,0 +1,13 @@
+
+POST http://localhost:59750/api/orders/
+Accept application/json, text/plain, */*
+Content-Type application/json
+** Raw request ********
+{
+	"party":"jjgao",
+	"priceLimit":10.5,
+	"side":"bid",
+	"quantity":5
+}
+****** Expected result ****
+incremental id

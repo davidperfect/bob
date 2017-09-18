@@ -30,19 +30,7 @@ namespace OrderBookLib
             return _orderStore.ReadAsync(me, ct);
         }
 
-        //TODO: Return a version that will be integrated in the event feed
-        public Task<int> Bid(string party, decimal priceLimit, int quantity)
-        {
-
-            return PlaceOrder(party, priceLimit, Side.Bid, quantity);
-        }
-
-        public Task<int> Ask(string party, decimal priceLimit, int quantity)
-        {
-            return PlaceOrder(party, priceLimit, Side.Ask, quantity);
-        }
-
-        private async Task<int> PlaceOrder(string party, decimal priceLimit, Side side, int quantity)
+        public async Task<int> PlaceOrder(string party, decimal priceLimit, Side side, int quantity)
         {
             var id = nextId++;
             var order = new Order(id, party, priceLimit, side, quantity);

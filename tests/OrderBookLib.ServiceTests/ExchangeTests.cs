@@ -23,7 +23,7 @@ namespace OrderBookLib.ServiceTests
             string party = "party";
             decimal priceLimit = 10.0m;
             int quantity = 12;
-            var version = await exchange.Bid(party, priceLimit, quantity);
+            var version = await exchange.PlaceOrder(party, priceLimit, Side.Bid, quantity);
 
             // Act
             var result = await exchange.GetTopBidsAsync(version, 1);
