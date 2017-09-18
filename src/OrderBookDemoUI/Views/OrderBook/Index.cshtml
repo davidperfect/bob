@@ -1,0 +1,24 @@
+﻿@*@page
+@model IndexModel*@
+
+<h1>Order book</h1>
+
+<hr />
+
+<div class="row">
+    Look at the console to see some wonderful things happening
+</div>
+
+@section Scripts{
+    <script src="scripts/signalr-client.js"></script>
+    <script>
+        let connection = new signalR.HubConnection('http://localhost:5000/order-book');
+
+        connection.on('send', data => {
+            console.log(data);
+        });
+
+        connection.start()
+            .then(() => connection.invoke('send', 'Hello'));
+    </script>
+}
