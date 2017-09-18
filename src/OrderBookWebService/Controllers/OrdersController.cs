@@ -35,7 +35,27 @@ namespace OrderBookWebService.Controllers
         [HttpGet]
         public async Task<IEnumerable<string>> Get()
         {
-            await _orderBookHubContext.Clients.All.InvokeAsync("Send", "Hi there!");
+            var ob = new ViewModels.OrderBook
+            {
+                AggregatedAsks = new List<ViewModels.AggregatedOrder>
+                {
+                    new ViewModels.AggregatedOrder
+                    {
+                        Price = 20.5m,
+                        Quantity = 3
+                    }
+                },
+                AggregatedBids = new List<ViewModels.AggregatedOrder>
+                {
+                    new ViewModels.AggregatedOrder
+                    {
+                        Price = 19.5m,
+                        Quantity = 5
+                    }
+                }
+            };
+
+            await _orderBookHubContext.Clients.All.InvokeAsync("Send", ob);
 
             return new string[] { "value1", "value2" };
         }
