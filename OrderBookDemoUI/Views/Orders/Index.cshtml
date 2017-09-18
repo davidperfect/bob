@@ -7,9 +7,11 @@
 
 <div class="form-group">
     <label for="InputTraderName">Trader Name</label>
-    <input class="form-control" type="text" id="InputTraderName" value="" placeholder="Trader Name" />
+    <input class="form-control" type="text" id="InputTraderName" name="party" value="" placeholder="Trader Name" />
 </div>
+
 <hr />
+
 <div class="row">
     <div class="col-md-6">
         <a href="javascript:void(0);" id="AnchorSelectBuy" class="btn btn-default btn-block">Buy</a>
@@ -18,6 +20,7 @@
         <a href="javascript:void(0);" id="AnchorSelectSell" class="btn btn-default btn-block">Sell</a>
     </div>
 </div>
+
 <hr />
 
 <div id="DivBuy" class="row">
@@ -25,14 +28,14 @@
         <form>
             <div class="form-group">
                 <label for="InputBuyQuantity">Quantity</label>
-                <input class="form-control" type="number" id="InputBuyQuantity" value="" placeholder="Quantity" />
+                <input class="form-control" type="number" id="InputBuyQuantity" name="quantity" value="" placeholder="Quantity" />
             </div>
             <div class="form-group">
                 <label for="InputBuyPrice">Max Price</label>
-                <input class="form-control" type="number" id="InputBuyPrice" value="" placeholder="Max Price" />
+                <input class="form-control" type="number" id="InputBuyPrice" name="priceLimit" value="" placeholder="Max Price" />
             </div>
             <div class="form-group-lg">
-                <input type="submit" id="InputBuyButton" value="Buy Now" class="btn btn-primary" />
+                <a href="javascript:void(0);" id="AnchorBuyButton" class="btn btn-primary">Buy Now</a>
             </div>
         </form>
     </div>
@@ -43,14 +46,14 @@
         <form>
             <div class="form-group">
                 <label for="InputSellQuantity">Quantity</label>
-                <input class="form-control" type="number" id="InputSellQuantity" value="" placeholder="Quantity" />
+                <input class="form-control" type="number" id="InputSellQuantity" name="quantity" value="" placeholder="Quantity" />
             </div>
             <div class="form-group">
                 <label for="InputSellPrice">Min Price</label>
-                <input class="form-control" type="number" id="InputSellPrice" value="" placeholder="Min Price" />
+                <input class="form-control" type="number" id="InputSellPrice" name="priceLimit" value="" placeholder="Min Price" />
             </div>
             <div class="form-group-lg">
-                <input type="submit" id="InputSellButton" value="Sell Now" class="btn btn-info" />
+                <a href="javascript:void(0);" id="AnchorSellButton" class="btn btn-info">Sell Now</a>
             </div>
         </form>
     </div>
@@ -59,7 +62,15 @@
 @section Scripts{
 
     <script>
+        var SIDE_BID = "bid"; // Buy
+        var SIDE_ASK = "ask"; // Sell
+
         $(document).ready(function () {
+            initialiseAnchors();
+            $("#AnchorSelectBuy").click();
+        });
+
+        function initialiseAnchors() {
             $("#AnchorSelectBuy").click(function () {
                 $(this).removeClass("btn-default")
                     .addClass("btn-primary");
@@ -82,8 +93,47 @@
                 $("#DivBuy").hide();
             });
 
-            $("#AnchorSelectBuy").click();
-        });
+            $("#AnchorBuyButton").click(function () {
+                placeOrder(SIDE_BID);
+            });
+
+            $("#AnchorSellButton").click(function () {
+                placeOrder(SIDE_ASK);
+            });
+        }
+
+        function placeOrder(side) {
+            var orderValues = getOrderValues(side);
+            console.log(orderValues);
+
+            $.ajax({
+                url: getWebServiceUri('orders'),
+                type: "POST",
+                data: JSON.stringify(orderValues),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    alert("Success!\nOrder Number: " + data);
+                }
+            });
+        }
+
+        function getOrderValues(side) {
+            var order = {
+                side: side,
+                party: $("#InputTraderName").val()
+            };
+
+            if (side == SIDE_ASK) {
+                order.price = $("#DivSell").find("input[name=priceLimit]").val();
+                order.quantity = $("#DivSell").find("input[name=quantity]").val();
+            } else {
+                order.price = $("#DivBuy").find("input[name=priceLimit]").val();
+                order.quantity = $("#DivBuy").find("input[name=quantity]").val();
+            }
+
+            return order;
+        }
 
     </script>
 
