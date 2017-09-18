@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +25,10 @@ namespace OrderBookWebService
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddSignalR();
+
+            //services.AddSingleton<OrderBookHub, OrderBookHub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +43,11 @@ namespace OrderBookWebService
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<OrderBookHub>("order-book");
+            });
         }
     }
 }

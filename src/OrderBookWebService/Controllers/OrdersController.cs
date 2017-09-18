@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OrderBookWebService.Orders;
-using OrderBookLib.EventStorage;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using OrderBookLib.Events;
+using OrderBookLib.EventStorage;
+using OrderBookWebService.Orders;
+using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OrderBookWebService.Controllers
 {
@@ -24,10 +24,19 @@ namespace OrderBookWebService.Controllers
             return exchange;
         }
 
+        IHubContext<OrderBookHub> _orderBookHubContext;
+
+        public OrdersController(IHubContext<OrderBookHub> orderBookHubContext)
+        {
+            _orderBookHubContext = orderBookHubContext;
+        }
+
         // GET api/orders
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<string>> Get()
         {
+            await _orderBookHubContext.Clients.All.InvokeAsync("Send", "Hi there!");
+
             return new string[] { "value1", "value2" };
         }
 
