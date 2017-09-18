@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Order\" />
+    <Compile Remove="Order\**" />
+    <Content Remove="Order\**" />
+    <EmbeddedResource Remove="Order\**" />
+    <None Remove="Order\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
