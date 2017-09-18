@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <h1>B.O.B.</h1>
         <h2>Basic Order Book</h2>
-        <a id="AnchorGetOrders">Get Orders</a>
+        <a id="AnchorGetOrders">Get Orders</a> - <code id="CodeResponse"> &nbsp; </code>
     </div>
 </div>
 
@@ -15,8 +15,9 @@
     <script>
         $(document).ready(function () {
             $("#AnchorGetOrders").click(function () {
+                $("#CodeResponse").text(' - ');
                 $.getJSON(getWebServiceUri('orders'), {}, function (data) {
-                    console.log(data);
+                    $("#CodeResponse").text(data);
                 });
             });
         });
