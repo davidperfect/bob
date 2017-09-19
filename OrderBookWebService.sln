@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookWebService", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookLib.IntegrationTests", "tests\OrderBookLib.IntegrationTests\OrderBookLib.IntegrationTests.csproj", "{AFEF5F9B-CE4E-474F-A3FD-528DF1669381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookDemoUI", "src\OrderBookDemoUI\OrderBookDemoUI.csproj", "{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderBookDemoUI", "src\OrderBookDemoUI\OrderBookDemoUI.csproj", "{FE171531-B38C-4ACA-83E0-73DC0D78DA6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

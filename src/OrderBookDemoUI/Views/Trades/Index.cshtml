@@ -1,0 +1,72 @@
+﻿<h1>Trades</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Trade ID</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="TBodyTrades">
+                <tr>
+                    <td colspan="3" id="TdNoData">No Data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="scripts/signalr-client.js"></script>
+    <script>
+        $(document).ready(function () {
+            let connection = getSignalRConnection('trades');
+
+            connection.on('trade',
+                data => {
+                    console.log(data);
+                    //if (data.AggregatedAsks != null) {
+                    //    processOrderBook(data);
+                    //}
+                });
+
+            connection.start()
+                .then(() => {
+                    connection.invoke('trade',
+                        {
+                            tradeId: 1,
+                            quantity: 10,
+                            price: 14.4
+                        }
+                    );
+                }
+            );
+
+            //tradeEvent({
+            //    TradeId: 1,
+            //    Quantity: 10,
+            //    Price: 14.4
+            //});
+        });
+
+        function tradeEvent(trade) {
+            $("#TdNoData").hide(); 
+
+            var tr = $("<tr />");
+            $(tr).append($("<td />").text(trade.TradeId));
+            $(tr).append($("<td />").text(trade.Quantity));
+            $(tr).append($("<td />").text(trade.Price));
+
+            $("#TBodyTrades").append(tr);
+        }
+
+        function getSignalRConnection(hubName) {
+            return new signalR.HubConnection(getWebServiceHub(hubName));
+        }
+    </script>
+}
