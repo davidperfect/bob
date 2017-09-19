@@ -73,6 +73,9 @@ namespace OrderBookLib
                     BidOrder = topBid.Order,
                     AskOrder = topAsk.Order
                 };
+
+                topBid = _bidOrderBook.GetTop();
+                topAsk = _askOrderBook.GetTop();
             }
         }
 
