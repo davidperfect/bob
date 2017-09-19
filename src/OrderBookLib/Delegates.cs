@@ -7,7 +7,7 @@ namespace OrderBookLib
     public class Delegates
     {
         public delegate void OnNewTradesDelegate(IReadOnlyCollection<Trade> trades);
-        public delegate void OnOrderBookUpdatedDelegate();
+        public delegate void OnOrderBookUpdatedDelegate(IReadOnlyCollection<OrderBookLine> orderBookAskLines, IReadOnlyCollection<OrderBookLine> orderBookBidLines);
 
     }
 }

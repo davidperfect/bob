@@ -28,17 +28,17 @@ namespace OrderBookWebService.Controllers
         {
             var ob = new ViewModels.OrderBook
             {
-                AggregatedAsks = new List<ViewModels.AggregatedOrder>
+                PendingAsks = new List<ViewModels.PendingOrder>
                 {
-                    new ViewModels.AggregatedOrder
+                    new ViewModels.PendingOrder
                     {
                         Price = 20.5m,
                         Quantity = 3
                     }
                 },
-                AggregatedBids = new List<ViewModels.AggregatedOrder>
+                PendingBids = new List<ViewModels.PendingOrder>
                 {
-                    new ViewModels.AggregatedOrder
+                    new ViewModels.PendingOrder
                     {
                         Price = 19.5m,
                         Quantity = 5

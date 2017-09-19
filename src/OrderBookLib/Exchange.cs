@@ -38,9 +38,9 @@ namespace OrderBookLib
             OnNewTrades?.Invoke(trades);
         }
 
-        private void HandleOrderBookUpdated()
+        private void HandleOrderBookUpdated(IReadOnlyCollection<OrderBookLine> orderBookAskLines, IReadOnlyCollection<OrderBookLine> orderBookBidLines)
         {
-            OnOrderBookUpdated?.Invoke();
+            OnOrderBookUpdated?.Invoke(orderBookAskLines, orderBookBidLines);
         }
 
         public async Task<int> PlaceOrder(string party, decimal priceLimit, Side side, int quantity)

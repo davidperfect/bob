@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using OrderBookWebService.ViewModels;
 
 namespace OrderBookWebService
 {
@@ -18,20 +19,40 @@ namespace OrderBookWebService
     {
         static Task runTask;
 
-        public static OrderBookLib.Exchange CreateExchange(IHubContext<TradesHub> hub)
+        public static OrderBookLib.Exchange CreateExchange(IHubContext<TradesHub> hub, IHubContext<OrderBookHub> orderBookHub)
         {
             IMessageSerializer<OrderPlaced> serializer = new JsonMessageSerializer<OrderPlaced>();
             var orderStore = new EventStore<OrderPlaced>("OrderPlaced.txt", serializer);
             var exchange = new OrderBookLib.Exchange(orderStore);
             exchange.OnNewTrades += (IReadOnlyCollection<OrderBookLib.Trade> trades) => HandleNewTrades(hub, trades);
-            exchange.OnOrderBookUpdated += HandleOrderBookUpdated;
+            exchange.OnOrderBookUpdated += (IReadOnlyCollection<OrderBookLib.OrderBookLine> orderBookAskLines, IReadOnlyCollection<OrderBookLib.OrderBookLine> orderBookBidLines) => HandleOrderBookUpdated(orderBookHub, orderBookAskLines, orderBookBidLines);
             var cts = new CancellationTokenSource();
             runTask = exchange.RunAsync(cts.Token);
             return exchange;
         }
 
-        static void HandleOrderBookUpdated()
+        static void HandleOrderBookUpdated(IHubContext<OrderBookHub> hub, IReadOnlyCollection<OrderBookLib.OrderBookLine> orderBookAskLines, IReadOnlyCollection<OrderBookLib.OrderBookLine> orderBookBidLines)
         {
+            hub.Clients.All.InvokeAsync("send",
+            new OrderBook
+            {
+                PendingAsks = orderBookAskLines.Select(x => new PendingOrder()
+                {
+                    Price = x.Order.PriceLimit,
+                    Quantity = x.Order.Quantity,
+                    RemainingQuantity = x.RemainingQuantity,
+                    Party = x.Order.Party
+                }).ToList(),
+
+                PendingBids = orderBookBidLines.Select(x => new PendingOrder()
+                {
+                    Price = x.Order.PriceLimit,
+                    Quantity = x.Order.Quantity,
+                    RemainingQuantity = x.RemainingQuantity,
+                    Party = x.Order.Party
+                }).ToList()
+            })
+                .Wait();
         }
 
         static void HandleNewTrades(IHubContext<TradesHub> hub, IReadOnlyCollection<OrderBookLib.Trade> trades)
