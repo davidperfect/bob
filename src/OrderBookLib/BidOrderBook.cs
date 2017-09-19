@@ -14,6 +14,16 @@ namespace OrderBookLib
             _orders.Add(line);
         }
 
+        public OrderBookLine PopTop()
+        {
+            var top = GetTop();
+            if (top != null)
+            {
+                _orders.Remove(top);
+            }
+            return top;
+        }
+
         public OrderBookLine GetTop()
         {
             return _orders

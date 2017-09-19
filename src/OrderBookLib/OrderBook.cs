@@ -43,8 +43,8 @@ namespace OrderBookLib
 
         public IEnumerable<Trade> Match()
         {
-            var topBid = _bidOrderBook.GetTop();
-            var topAsk = _askOrderBook.GetTop();
+            var topBid = _bidOrderBook.PopTop();
+            var topAsk = _askOrderBook.PopTop();
 
             while (topBid != null && topAsk != null && topBid.Order.PriceLimit >= topAsk.Order.PriceLimit)
             {
@@ -74,8 +74,19 @@ namespace OrderBookLib
                     AskOrder = topAsk.Order
                 };
 
-                topBid = _bidOrderBook.GetTop();
-                topAsk = _askOrderBook.GetTop();
+                topBid = _bidOrderBook.PopTop();
+                topAsk = _askOrderBook.PopTop();
+            }
+
+
+            if (topBid != null && topBid.RemainingQuantity > 0)
+            {
+                _bidOrderBook.Add(topBid);
+            }
+
+            if (topAsk != null && topAsk.RemainingQuantity > 0)
+            {
+                _askOrderBook.Add(topAsk);
             }
         }
 
