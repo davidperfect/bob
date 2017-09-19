@@ -1,5 +1,5 @@
 ﻿@*@page
-@model IndexModel*@
+    @model IndexModel*@
 
 <h1>Orders</h1>
 
@@ -119,8 +119,11 @@
                 data: JSON.stringify(orderValues),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     alert("Success!\nOrder Number: " + data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error\nResponse Status: ' + xhr.status + '\nError Message: ' + thrownError);
                 }
             });
         }
