@@ -34,7 +34,7 @@ namespace OrderBookWebService.Controllers
                 Price = bid.PriceLimit
             };
 
-            await _tradesHub.Clients.All.InvokeAsync("Trade", trade);
+            await _tradesHub.Clients.All.InvokeAsync("Trade", new List<ViewModels.Trade>{ trade });
 
             return new string[] { "value1", "value2" };
         }

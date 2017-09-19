@@ -63,8 +63,17 @@
         var SIDE_BID = "bid"; // Buy
         var SIDE_ASK = "ask"; // Sell
 
+        function getRandomArbitrary(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+
         $(document).ready(function () {
             initialiseAnchors();
+
+            var rand = getRandomArbitrary(0, Parties.length);
+            $("#InputTraderName").val(Parties[rand]);
+
             $("#AnchorSelectBuy").click();
         });
 
@@ -132,6 +141,10 @@
 
             return order;
         }
+
+        var Parties =
+            "Noah,Liam,Sophia,Mason,Ava,Jacob,William,Isabella,Ethan,Mia,James,Alexander,Michael,Logan,Benjamin,Elijah,Aiden,Daniel,Matthew,Abigail,Lucas,Jackson"
+                .split(',');
 
     </script>
 
