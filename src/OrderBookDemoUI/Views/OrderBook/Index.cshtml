@@ -14,11 +14,12 @@
                     <tr>
                         <th>Max Price</th>
                         <th>Quantity</th>
+                        <th>Remaining Quantity</th>
                     </tr>
                 </thead>
                 <tbody id="TBodyBids">
                     <tr>
-                        <td colspan="2">No Data</td>
+                        <td colspan="3">No Data</td>
                     </tr>
                 </tbody>
             </table>
@@ -33,11 +34,12 @@
                     <tr>
                         <th>Min Price</th>
                         <th>Quantity</th>
+                        <th>Remaining Quantity</th>
                     </tr>
                 </thead>
                 <tbody id="TBodyAsks">
                     <tr>
-                        <td colspan="2">No Data</td>
+                        <td colspan="3">No Data</td>
                     </tr>
                 </tbody>
             </table>
@@ -82,6 +84,7 @@
                 var tr = $("<tr />");
                 $(tr).append($("<td />").text(asks[i].Price));
                 $(tr).append($("<td />").text(asks[i].Quantity));
+                $(tr).append($("<td />").text(asks[i].RemainingQuantity));
                 $("#TBodyAsks").append(tr);
             }
 
@@ -89,6 +92,7 @@
                 var tr = $("<tr />");
                 $(tr).append($("<td />").text(bids[i].Price));
                 $(tr).append($("<td />").text(bids[i].Quantity));
+                $(tr).append($("<td />").text(bids[i].RemainingQuantity));
                 $("#TBodyBids").append(tr);
             }
         }
