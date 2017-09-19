@@ -48,7 +48,7 @@ namespace OrderBookLib
 
             while (topBid != null && topAsk != null && topBid.Order.PriceLimit >= topAsk.Order.PriceLimit)
             {
-                var matchedQuantity = Math.Max(topBid.RemainingQuantity, topAsk.RemainingQuantity);
+                var matchedQuantity = Math.Min(topBid.RemainingQuantity, topAsk.RemainingQuantity);
                 var matchedPrice = topBid.Order.Id < topAsk.Order.Id
                     ? topBid.Order.PriceLimit
                     : topAsk.Order.PriceLimit;
