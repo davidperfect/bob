@@ -51,8 +51,6 @@ namespace OrderBookWebService.Controllers
             };
         }
 
-        private static string[] Parties =
-            "Noah,Olivia,Liam,Sophia,Mason,Ava,Jacob,William,Isabella,Ethan,Mia,James,Alexander,Michael,Logan,Benjamin,Elijah,Aiden,Daniel,Matthew,Abigail,Lucas,Jackson"
-                .Split(',');
+        private static string[] Parties = "Noah,Liam,Sophia,Mason,Ava,Jacob,William,Isabella,Ethan,Mia,James,Alexander,Michael,Logan,Benjamin,Elijah,Aiden,Daniel,Matthew,Abigail,Lucas,Jackson" .Split(',');
     }
 }
