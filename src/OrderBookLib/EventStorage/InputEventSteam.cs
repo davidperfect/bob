@@ -24,12 +24,13 @@ namespace OrderBookLib.EventStorage
             while (!ct.IsCancellationRequested)
             {
                 line = await _streamReader.ReadLineAsync();
-                Thread.Sleep(100);
                 if (line != null)
                 {
                     var anEvent = _serializer.Deserialize(line);
                     return anEvent;
                 }
+
+                await Task.Delay(100);
             }
 
             return default(TEvent);
