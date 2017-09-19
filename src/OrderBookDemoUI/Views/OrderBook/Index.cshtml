@@ -48,17 +48,28 @@
 @section Scripts{
     <script src="scripts/signalr-client.js"></script>
     <script>
-        let connection = getSignalRConnection('order-book');
+        $(document).ready(function() {
+            let connection = getSignalRConnection('order-book');
 
-        connection.on('send', data => {
-            console.log(data);
-            if (data.AggregatedAsks != null) {
-                processOrderBook(data);
-            }
+            connection.on('send',
+                data => {
+                    console.log(data);
+                    if (data.AggregatedAsks != null) {
+                        processOrderBook(data);
+                    }
+                });
+
+            connection.start()
+                .then(() => {
+                        connection.invoke('send', 'Hello');
+                        getOrderBook();
+                    }
+                );
         });
 
-        connection.start()
-            .then(() => connection.invoke('send', 'Hello'));
+        function getOrderBook() {
+            $.getJSON(getWebServiceUri('orders'), {}, function() {});
+        }
 
         function processOrderBook(orderBook) {
             var asks = orderBook.AggregatedAsks;
@@ -67,16 +78,14 @@
             $("#TBodyAsks").text('');
             $("#TBodyBids").text('');
 
-            for (var i = 0; i < asks.length; i++)
-            {
+            for (var i = 0; i < asks.length; i++) {
                 var tr = $("<tr />");
                 $(tr).append($("<td />").text(asks[i].Price));
                 $(tr).append($("<td />").text(asks[i].Quantity));
                 $("#TBodyAsks").append(tr);
             }
 
-            for (var i = 0; i < bids.length; i++)
-            {
+            for (var i = 0; i < bids.length; i++) {
                 var tr = $("<tr />");
                 $(tr).append($("<td />").text(bids[i].Price));
                 $(tr).append($("<td />").text(bids[i].Quantity));
