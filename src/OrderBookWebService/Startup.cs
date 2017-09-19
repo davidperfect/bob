@@ -29,7 +29,9 @@ namespace OrderBookWebService
 
             services.AddSignalR();
 
-            services.AddSingleton<OrderBookLib.Exchange, OrderBookLib.Exchange>((System.IServiceProvider serviceProvider) => ExchangeFactory.CreateExchange(serviceProvider.GetService<IHubContext<TradesHub>>()));
+            services.AddSingleton<OrderBookLib.Exchange, OrderBookLib.Exchange>(
+                (System.IServiceProvider serviceProvider) => 
+                ExchangeFactory.CreateExchange(serviceProvider.GetService<IHubContext<TradesHub>>(), serviceProvider.GetService<IHubContext<OrderBookHub>>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

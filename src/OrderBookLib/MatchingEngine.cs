@@ -26,7 +26,7 @@ namespace OrderBookLib
             {
                 OnNewTrades?.Invoke(trades);
             }
-            OnOrderBookUpdated?.Invoke();
+            OnOrderBookUpdated?.Invoke(_orderBook.GetTopAsks(1000), _orderBook.GetTopBids(1000));
 
             return Task.FromResult(0);
         }

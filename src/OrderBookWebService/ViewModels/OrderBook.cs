@@ -4,8 +4,8 @@ namespace OrderBookWebService.ViewModels
 {
     public class OrderBook
     {
-        public List<AggregatedOrder> AggregatedBids { get; set; }
+        public List<PendingOrder> PendingBids { get; set; }
 
-        public List<AggregatedOrder> AggregatedAsks { get; set; }
+        public List<PendingOrder> PendingAsks { get; set; }
     }
 }

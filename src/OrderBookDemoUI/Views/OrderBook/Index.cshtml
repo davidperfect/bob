@@ -54,7 +54,7 @@
             connection.on('send',
                 data => {
                     console.log(data);
-                    if (data.AggregatedAsks != null) {
+                    if (data.PendingAsks != null) {
                         processOrderBook(data);
                     }
                 });
@@ -72,8 +72,8 @@
         }
 
         function processOrderBook(orderBook) {
-            var asks = orderBook.AggregatedAsks;
-            var bids = orderBook.AggregatedBids;
+            var asks = orderBook.PendingAsks;
+            var bids = orderBook.PendingBids;
 
             $("#TBodyAsks").text('');
             $("#TBodyBids").text('');
