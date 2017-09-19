@@ -1,6 +1,6 @@
 ﻿namespace OrderBookLib
 {
-    class Trade
+    public class Trade
     {
         public int Quantity;
 

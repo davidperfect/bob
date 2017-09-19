@@ -13,22 +13,13 @@ namespace OrderBookWebService.Controllers
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        private static Lazy<OrderBookLib.Exchange> _exchange = new Lazy<OrderBookLib.Exchange>(CreateExchange);
-        private static OrderBookLib.Exchange CreateExchange()
-        {
-            IMessageSerializer<OrderPlaced> serializer = new JsonMessageSerializer<OrderPlaced>();
-            var orderStore = new EventStore<OrderPlaced>("OrderPlaced.txt", serializer);
-            var exchange = new OrderBookLib.Exchange(orderStore);
-            var cts = new CancellationTokenSource();
-            var runTask = exchange.RunAsync(cts.Token);
-            return exchange;
-        }
-
         IHubContext<OrderBookHub> _orderBookHubContext;
+        private static OrderBookLib.Exchange _exchange;
 
-        public OrdersController(IHubContext<OrderBookHub> orderBookHubContext)
+        public OrdersController(IHubContext<OrderBookHub> orderBookHubContext, OrderBookLib.Exchange exchange)
         {
             _orderBookHubContext = orderBookHubContext;
+            _exchange = exchange;
         }
 
         // GET api/orders
@@ -75,7 +66,7 @@ namespace OrderBookWebService.Controllers
                 ? OrderBookLib.Side.Bid
                 : OrderBookLib.Side.Ask;
 
-            return await _exchange.Value.PlaceOrder(order.Party, order.PriceLimit, side, order.Quantity);
+            return await _exchange.PlaceOrder(order.Party, order.PriceLimit, side, order.Quantity);
         }
 
         // PUT api/orders/5

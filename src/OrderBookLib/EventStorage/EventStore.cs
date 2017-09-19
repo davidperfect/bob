@@ -36,6 +36,8 @@ namespace OrderBookLib.EventStorage
         {
             var eventStream = new InputEventSteam<TEvent>(_path, _serializer);
 
+            try
+            {
             while (!ct.IsCancellationRequested)
             {
                 var anEvent =  eventStream.ReadEventAsync(ct).Result;
@@ -44,6 +46,13 @@ namespace OrderBookLib.EventStorage
                     subscriber.HandleEventAsync(anEvent).Wait();
                 }
             }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

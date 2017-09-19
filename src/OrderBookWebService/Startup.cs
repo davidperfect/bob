@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace OrderBookWebService
 
             services.AddSignalR();
 
-            //services.AddSingleton<OrderBookHub, OrderBookHub>();
+            services.AddSingleton<OrderBookLib.Exchange, OrderBookLib.Exchange>((System.IServiceProvider serviceProvider) => ExchangeFactory.CreateExchange(serviceProvider.GetService<IHubContext<TradesHub>>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +48,7 @@ namespace OrderBookWebService
             app.UseSignalR(routes =>
             {
                 routes.MapHub<OrderBookHub>("order-book");
+                routes.MapHub<TradesHub>("trades");
             });
         }
     }

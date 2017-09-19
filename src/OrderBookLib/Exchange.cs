@@ -10,12 +10,13 @@ namespace OrderBookLib
 {
     public class Exchange
     {
-
         EventStore<OrderPlaced> _orderStore;
         OrderBook _orderBook;
 
-        private int nextId = 1;
+        public Delegates.OnNewTradesDelegate OnNewTrades;
+        public Delegates.OnOrderBookUpdatedDelegate OnOrderBookUpdated;
 
+        private int nextId = 1;
 
         public Exchange(EventStore<OrderPlaced> orderStore)
         {
@@ -27,7 +28,19 @@ namespace OrderBookLib
         public Task RunAsync(CancellationToken ct)
         {
             MatchingEngine me = new MatchingEngine(_orderBook);
+            me.OnNewTrades += HandleNewTrades;
+            me.OnOrderBookUpdated += HandleOrderBookUpdated;
             return _orderStore.ReadAsync(me, ct);
+        }
+
+        private void HandleNewTrades(IReadOnlyCollection<Trade> trades)
+        {
+            OnNewTrades?.Invoke(trades);
+        }
+
+        private void HandleOrderBookUpdated()
+        {
+            OnOrderBookUpdated?.Invoke();
         }
 
         public async Task<int> PlaceOrder(string party, decimal priceLimit, Side side, int quantity)

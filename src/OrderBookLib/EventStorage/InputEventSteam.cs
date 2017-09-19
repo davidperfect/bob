@@ -21,7 +21,7 @@ namespace OrderBookLib.EventStorage
         public async Task<TEvent> ReadEventAsync(CancellationToken ct)
         {
             string line = null;
-            while (line == null && !ct.IsCancellationRequested)
+            while (!ct.IsCancellationRequested)
             {
                 line = await _streamReader.ReadLineAsync();
                 Thread.Sleep(100);
