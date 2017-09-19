@@ -23,7 +23,7 @@ namespace OrderBookWebService
             IMessageSerializer<OrderPlaced> serializer = new JsonMessageSerializer<OrderPlaced>();
             var orderStore = new EventStore<OrderPlaced>("OrderPlaced.txt", serializer);
             var exchange = new OrderBookLib.Exchange(orderStore);
-            exchange.OnNewTrades += HandleNewTrades;
+            exchange.OnNewTrades += (IReadOnlyCollection<OrderBookLib.Trade> trades) => HandleNewTrades(hub, trades);
             exchange.OnOrderBookUpdated += HandleOrderBookUpdated;
             var cts = new CancellationTokenSource();
             runTask = exchange.RunAsync(cts.Token);
@@ -35,7 +35,7 @@ namespace OrderBookWebService
 
         }
 
-        static void HandleNewTrades(IReadOnlyCollection<OrderBookLib.Trade> trades)
+        static void HandleNewTrades(IHubContext<TradesHub> hub, IReadOnlyCollection<OrderBookLib.Trade> trades)
         {
 
         }

@@ -38,14 +38,14 @@ namespace OrderBookLib.EventStorage
 
             try
             {
-            while (!ct.IsCancellationRequested)
-            {
-                var anEvent =  eventStream.ReadEventAsync(ct).Result;
-                if (anEvent != null)
+                while (!ct.IsCancellationRequested)
                 {
-                    subscriber.HandleEventAsync(anEvent).Wait();
+                    var anEvent = eventStream.ReadEventAsync(ct).Result;
+                    if (anEvent != null)
+                    {
+                        subscriber.HandleEventAsync(anEvent).Wait();
+                    }
                 }
-            }
             }
             catch (System.Exception)
             {
