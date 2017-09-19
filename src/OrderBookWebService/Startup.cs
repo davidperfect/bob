@@ -47,6 +47,7 @@ namespace OrderBookWebService
             app.UseSignalR(routes =>
             {
                 routes.MapHub<OrderBookHub>("order-book");
+                routes.MapHub<TradesHub>("trades");
             });
         }
     }

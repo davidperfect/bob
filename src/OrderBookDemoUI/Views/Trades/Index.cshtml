@@ -7,14 +7,16 @@
         <table class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>Trade ID</th>
+                    @*<th>Trade ID</th>*@
                     <th>Quantity</th>
                     <th>Price</th>
+                    <th>Bid</th>
+                    <th>Ask</th>
                 </tr>
             </thead>
             <tbody id="TBodyTrades">
                 <tr>
-                    <td colspan="3" id="TdNoData">No Data</td>
+                    <td colspan="4" id="TdNoData">No Data</td>
                 </tr>
             </tbody>
         </table>
@@ -30,9 +32,13 @@
             connection.on('trade',
                 data => {
                     console.log(data);
-                    //if (data.AggregatedAsks != null) {
-                    //    processOrderBook(data);
-                    //}
+                    if (data != null && data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].Quantity != null) {
+                                processTrade(data[i]);
+                            }
+                        }
+                    }
                 });
 
             connection.start()
@@ -54,15 +60,25 @@
             //});
         });
 
-        function tradeEvent(trade) {
+        function processTrade(trade) {
             $("#TdNoData").hide(); 
 
             var tr = $("<tr />");
-            $(tr).append($("<td />").text(trade.TradeId));
+            //$(tr).append($("<td />").text(trade.TradeId));
             $(tr).append($("<td />").text(trade.Quantity));
             $(tr).append($("<td />").text(trade.Price));
+            $(tr).append($("<td />").append(getOrder(trade.AskOrder, "ask")));
+            $(tr).append($("<td />").append(getOrder(trade.BidOrder, "bid")));
 
-            $("#TBodyTrades").append(tr);
+            $("#TBodyTrades").prepend(tr);
+        }
+
+        function getOrder(order, side) {
+            var div = $("<div />");
+            $(div).append($("<div />").append($("<strong />").text(order.Party)));
+            $(div).append($("<div />").append($("<span />").text("Quantity: ")).append($("<strong />").text(order.Quantity)));
+            $(div).append($("<div />").append($("<span />").text(side == "ask" ? "Min Price: " : "Max Price: ")).append($("<strong />").html("&pound;" + order.PriceLimit)));
+            return div; 
         }
 
         function getSignalRConnection(hubName) {
